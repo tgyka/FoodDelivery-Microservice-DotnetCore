@@ -54,6 +54,11 @@ namespace FoodDelivery.EventBus.Base
             return _eventHandler.ContainsKey(eventName);
         }
 
+        public bool HasSubsForEvent(string eventName)
+        {
+            return _eventHandler.ContainsKey(eventName);
+        }
+
         public void RemoveSubs<T, TH>()
             where T : IntegrationEvent
             where TH : IIntegrationEventHandler<T>
@@ -72,10 +77,12 @@ namespace FoodDelivery.EventBus.Base
             }
         }
 
-        private string GetEventName<T>()
+
+        public string GetEventName<T>()
         {
             return typeof(T).Name;
         }
+
 
         private Type GetEventHandler<TH>()
         {
@@ -89,6 +96,17 @@ namespace FoodDelivery.EventBus.Base
                 _eventHandler.Remove(eventName);
             }
         }
+
+        public IEnumerable<Type> GetHandlersForEvent(string eventName)
+        {
+            return _eventHandler[eventName];
+        }
+
+        public Type GetEventTypeByName(string eventName)
+        {
+            return Type.GetType(eventName);
+        } 
+
     }
 }
 

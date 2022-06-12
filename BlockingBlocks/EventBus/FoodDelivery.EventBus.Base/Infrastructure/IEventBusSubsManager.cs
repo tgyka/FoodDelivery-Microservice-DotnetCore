@@ -21,6 +21,15 @@ namespace FoodDelivery.EventBus.Base.Infrastructure
 
         bool HasSubsForEvent<T>() where T : IntegrationEvent;
 
+        bool HasSubsForEvent(string eventName);
+
+        string GetEventName<T>();
+
+        IEnumerable<Type> GetHandlersForEvent(string eventName);
+
+        Type GetEventTypeByName(string eventName);
+
+
 
     }
 }
